@@ -17,7 +17,7 @@ title = "Tech with JT"
   # image = "img/author.jpg"
   # headline = "I'm only human"
   bio = "IT Professional sharing my learning and self-development journey. ☕"
-  # links = [
+  links = [
   #   { email = "mailto:hello@your_domain.com" },
   #   { link = "https://link-to-some-website.com/" },
   #   { amazon = "https://www.amazon.com/hz/wishlist/ls/wishlist-id" },
@@ -38,7 +38,7 @@ title = "Tech with JT"
   #   { keybase = "https://keybase.io/username" },
   #   { kickstarter = "https://www.kickstarter.com/profile/username" },
   #   { lastfm = "https://lastfm.com/user/username" },
-       { linkedin = "https://www.linkedin.com/in/juveria-t-3491bb132" },
+{ linkedin = "https://www.linkedin.com/in/juveria-t-3491bb132" },
   #   { mastodon = "https://mastodon.instance/@username" },
   #   { medium = "https://medium.com/username" },
   #   { microsoft = "https://www.microsoft.com/" },
@@ -59,4 +59,4 @@ title = "Tech with JT"
   #   { whatsapp = "https://wa.me/phone-number" },
   #   { x-twitter = "https://twitter.com/username" },
   #   { youtube = "https://youtube.com/username" },
-  # ]
+  ]

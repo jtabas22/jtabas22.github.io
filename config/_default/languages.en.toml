@@ -8,14 +8,13 @@ title = "Tech with JT"
 
 [params]
   dateFormat = "2 January 2006"
-
-  # mainSections = ["section1", "section2"]
+  mainSections = ["posts"]
   # description = ""
 
 [author]
-   name = "Juveria Tabassum"
-  # image = "img/author.jpg"
-  # headline = "I'm only human"
+  name = "Juveria Tabassum"
+  image = "img/author.png"
+  headline = "IT Professional sharing my learning and self-development journey. ☕"
   bio = "IT Professional sharing my learning and self-development journey. ☕"
   links = [
   #   { email = "mailto:hello@your_domain.com" },
@@ -30,7 +29,7 @@ title = "Tech with JT"
   #   { facebook = "https://facebook.com/username" },
   #   { flickr = "https://www.flickr.com/photos/username/" },
   #   { foursquare = "https://foursquare.com/username" },
-  #   { github = "https://github.com/username" },
+     { github = "https://github.com/jtabas22" },
   #   { gitlab = "https://gitlab.com/username" },
   #   { google = "https://www.google.com/" },
   #   { hashnode = "https://username.hashnode.dev" },

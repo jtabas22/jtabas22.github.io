@@ -3,13 +3,34 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
     
+      <url>
+            <loc>https://jtabas.githib.io/</loc>
+            <lastmod>2023-11-17T09:03:20-08:00</lastmod>
+          </url>
+    
+  
+    
   
     
   
     
       <url>
-            <loc>https://jtabas.githib.io/</loc>
+            <loc>https://jtabas.githib.io/posts/</loc>
+            <lastmod>2023-11-17T09:03:20-08:00</lastmod>
           </url>
+    
+  
+    
+  
+    
+  
+    
+      <url>
+            <loc>https://jtabas.githib.io/posts/post1/</loc>
+            <lastmod>2023-11-17T09:03:20-08:00</lastmod>
+          </url>
+    
+  
     
   
 </urlset>

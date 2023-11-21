@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cybersecurity, projects, references on WEE</title>
+    <link>https://jtabas.githib.io/tags/cybersecurity-projects-references/</link>
+    <description>Recent content in cybersecurity, projects, references on WEE</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 20 Nov 2022 09:03:20 -0800</lastBuildDate>
+    <atom:link href="https://jtabas.githib.io/tags/cybersecurity-projects-references/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tools and Resources for Labs</title>
+      <link>https://jtabas.githib.io/posts/post1/</link>
+      <pubDate>Sun, 20 Nov 2022 09:03:20 -0800</pubDate>
+      <guid>https://jtabas.githib.io/posts/post1/</guid>
+      <description>Tools and Resources #Throughout our labs, we&amp;rsquo;ll be using a variety of tools, programs and resources to further our knowledge and skills.</description>
+    </item>
+  </channel>
+</rss>

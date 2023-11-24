@@ -1,3 +1,1 @@
-## This is my website. 
-
-I am literally crying tears of blood trying to make this work. Good lord.
+Repo for personal labs and projects website. 

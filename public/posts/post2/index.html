@@ -1,0 +1,821 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"
+><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="rgb(255,255,255)" />
+  
+  <title>Lab 1: Nmap Port Scanning &middot; Tech with JT</title>
+    <meta name="title" content="Lab 1: Nmap Port Scanning &middot; Tech with JT" />
+  
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.022d0ebc3b46a335eb1c7ef79b7f2de143d7cd5156d433638592ef1ce5f8554e.js"
+    integrity="sha256-Ai0OvDtGozXrHH73m38t4UPXzVFW1DNjhZLvHOX4VU4="
+  ></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.1bfe14a6571bfbe3b3346bc00358ca821f04a3ba1c3f212787c4c2c6a7fba4e5.css"
+    integrity="sha256-G/4Uplcb&#43;&#43;OzNGvAA1jKgh8Eo7ocPyEnh8TCxqf7pOU="
+  />
+  
+  
+  
+  
+  
+  <meta
+    name="description"
+    content="
+      
+        Nmap, or Network mapper, is an open-source Linux tool for network discovery and network security auditing.
+      
+    "
+  />
+  
+  
+  
+  <link rel="canonical" href="https://jtabas.githib.io/posts/post2/" />
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+<link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="Lab 1: Nmap Port Scanning" />
+<meta property="og:description" content="Nmap, or Network mapper, is an open-source Linux tool for network discovery and network security auditing." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jtabas.githib.io/posts/post2/" /><meta property="og:image" content="https://jtabas.githib.io/posts/post2/cover.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-12-01T09:03:20-08:00" />
+<meta property="article:modified_time" content="2023-12-01T09:03:20-08:00" />
+
+
+  <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://jtabas.githib.io/posts/post2/cover.png"/>
+<meta name="twitter:title" content="Lab 1: Nmap Port Scanning"/>
+<meta name="twitter:description" content="Nmap, or Network mapper, is an open-source Linux tool for network discovery and network security auditing."/>
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "Lab 1: Nmap Port Scanning",
+    "headline": "Lab 1: Nmap Port Scanning",
+    
+    "abstract": "Nmap, or Network mapper, is an open-source Linux tool for network discovery and network security auditing.",
+    "inLanguage": "en",
+    "url" : "https:\/\/jtabas.githib.io\/posts\/post2\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Juveria Tabassum"
+    },
+    "copyrightYear": "2023",
+    "dateCreated": "2023-12-01T09:03:20-08:00",
+    "datePublished": "2023-12-01T09:03:20-08:00",
+    
+    "dateModified": "2023-12-01T09:03:20-08:00",
+    
+    "keywords": "cybersecurity, networks, labs, nmap",
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "805"
+  }
+  </script>
+
+
+  
+  <meta name="author" content="Juveria Tabassum" />
+  
+    
+      <link href="https://github.com/jtabas22" rel="me" />
+    
+      <link href="https://www.linkedin.com/in/juveria-t-3491bb132" rel="me" />
+    
+  
+  
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+  
+  
+</head>
+<body
+    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32"
+  >
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="font-bold pe-2 text-primary-600 dark:text-primary-400">&darr;</span
+        >Skip to main content</a
+      >
+    </div>
+    
+    
+      <header class="py-6 font-semibold text-neutral-900 dark:text-neutral print:hidden sm:py-10">
+  <nav class="flex items-start justify-between sm:items-center">
+    
+    <div class="z-40 flex flex-row items-center">
+      
+  <a
+    class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+    rel="me"
+    href="/"
+    >Tech with JT</a
+  >
+
+    </div>
+    
+    
+      <label id="menu-button" for="menu-controller" class="block">
+        <input type="checkbox" id="menu-controller" class="hidden" />
+        <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+          <span class="relative inline-block align-text-bottom px-1 icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+        </div>
+        <div
+          id="menu-wrapper"
+          class="fixed inset-0 z-30 invisible w-full h-full m-auto overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50"
+        >
+          <ul
+            class="flex flex-col w-full px-6 py-6 mx-auto overflow-visible list-none max-w-7xl text-end sm:px-14 sm:py-10 sm:pt-10 md:px-24 lg:px-32"
+          >
+            <li class="mb-1">
+              <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400"
+                ><span class="relative inline-block align-text-bottom px-1 icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span></span
+              >
+            </li>
+            
+              
+                
+                <li class="mb-1 group">
+                  
+                    <a
+                      href="/posts/"
+                      title="Posts"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Blog Posts</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="mb-1 group">
+                  
+                    <a
+                      href="https://www.linkedin.com/in/juveria-t-3491bb132"
+                      title=""
+                      target="_blank"
+                      >
+                        <span
+                          class="transition-colors group-dark:hover:text-primary-400 group-hover:text-primary-600"
+                        ><span class="relative inline-block align-text-bottom px-1 icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+</span></span></a
+                    >
+                  
+                </li>
+              
+                
+                <li class="mb-1 group">
+                  
+                    <a
+                      href="/tags/"
+                      title="Tags"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Tags</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="mb-1 group">
+                  
+                    
+                    
+                  
+                </li>
+              
+                
+                  
+              
+            
+          </ul>
+        </div>
+      </label>
+    
+  </nav>
+</header>
+
+    
+    <div class="relative flex flex-col grow">
+      <main id="main-content" class="grow">
+        
+  <article>
+    <header class="max-w-prose">
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        Lab 1: Nmap Port Scanning
+      </h1>
+      <div class="mt-8 mb-12 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+    
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2023-12-01 09:03:20 -0800 -0800">1 December 2023</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">4 mins</span>
+    
+
+    
+    
+  </div>
+
+  
+  
+
+
+      </div>
+      
+        <div class="prose">
+          <img
+            class="mb-6 -mt-4 rounded-md"
+            
+              width="6912"
+              height="3456"
+              
+                srcset="/posts/post2/cover_hubc3f5f0d8a4b3638c8ecbd57aa10fa89_6778855_330x0_resize_box_3.png 330w,/posts/post2/cover_hubc3f5f0d8a4b3638c8ecbd57aa10fa89_6778855_660x0_resize_box_3.png 660w,/posts/post2/cover_hubc3f5f0d8a4b3638c8ecbd57aa10fa89_6778855_1024x0_resize_box_3.png 1024w,/posts/post2/cover_hubc3f5f0d8a4b3638c8ecbd57aa10fa89_6778855_1320x0_resize_box_3.png 2x"
+              
+            
+            alt=""
+          />
+          
+        </div>
+      
+    </header>
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+      
+      <div class="min-w-0 min-h-0 max-w-prose grow">
+        <p>Nmap, or <strong>N</strong>etwork <strong>map</strong>per, is an open-source Linux tool for network discovery and network security auditing.</p>
+<p>Nmap is a fantastic tool for network scanning, host discovery, and port scanning. It works mainly by sending packets and analyzing the responses, but has other functions as well.</p>
+<p>By reviewing and auditing the ports on machines in the network regularly, we can verify that they are configured correctly, secure, and being used in the intended manner. It can also reveal information about possible vulnerabilities, or detect irregularities in the network hosts.</p>
+<p><strong>How to get Nmap</strong></p>
+<p>Nmap comes installed on KaliLinux, and can be installed on many Linux distributions with various package managers. Click <a href="https://nmap.org/download" target="_blank" rel="noreferrer">Here</a> to download nmap for your system.</p>
+<h2 id="environment-setup" class="relative group">Environment Setup <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#environment-setup" aria-label="Anchor">#</a></span></h2><p>For this lab, we&rsquo;ll be using a Virtualbox to set up a NAT Network which will contain three hosts: our host system, a KaliLinux instance called Kali2 and a Metasploitable 2 instance called Target.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>IP Address</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Host PC</td>
+<td>n/a</td>
+<td>10.0.2.1</td>
+</tr>
+<tr>
+<td>Kali2</td>
+<td>Kali Linux</td>
+<td>10.0.2.4</td>
+</tr>
+<tr>
+<td>Target</td>
+<td>Metasploitable 2</td>
+<td>10.0.2.5</td>
+</tr>
+</tbody>
+</table>
+<p>First, let&rsquo;s verify the version and see the usage instructions using the commands below.</p>
+<pre tabindex="0"><code>$ nmap --version
+$ nmap -h 
+</code></pre><p>
+
+
+
+
+  
+  
+  
+    <figure>
+      <img
+        class="mx-auto my-0 rounded-md"
+        src="/lab1/nmap--v-h.PNG"
+        alt="Output of Version Check Scan"
+        
+          loading="lazy"
+        
+      />
+      
+    </figure>
+  
+</p>
+<h2 id="common-nmap-scans-and-commands" class="relative group">Common Nmap Scans and Commands <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#common-nmap-scans-and-commands" aria-label="Anchor">#</a></span></h2><p>Here are some common types of nmap scans and what they tell us about the target machine.</p>
+<p><strong>No Port Scan</strong></p>
+<p>Also known as a ping scan, this type of scan is used to perform host discovery without doing a port scan. This type of scan tells us how many online and responsive hosts there are on a netowork.</p>
+<pre tabindex="0"><code>$ nmap -sp 10.0.2.0/24
+</code></pre><p>Below is the output of the No Port Scan run on the whole subnet. This shows there are three online hosts in the network, and their ip addresses.</p>
+<p>
+
+
+
+
+  
+  
+  
+    <figure>
+      <img
+        class="mx-auto my-0 rounded-md"
+        src="/lab1/nmap-sP.PNG"
+        alt="Output of No Port Scan"
+        
+          loading="lazy"
+        
+      />
+      
+    </figure>
+  
+</p>
+<p><strong>Basic Port scan</strong></p>
+<p>This is the most basic usage of nmap, and it scans the specified host(s) for the 1000 most well-known ports, like HTTTPS, SSL, SQL and others.</p>
+<pre tabindex="0"><code>$ nmap 10.0.2.5
+</code></pre><p>
+
+
+
+
+  
+  
+  
+    <figure>
+      <img
+        class="mx-auto my-0 rounded-md"
+        src="/lab1/nmap.PNG"
+        alt="Output of Basic Port Scan"
+        
+          loading="lazy"
+        
+      />
+      
+    </figure>
+  
+</p>
+<!--- Decided not to inlclude 
+**TCP Connect Scan** 
+
+To detect active services on TCP ports, we can perform a TCP Connect scan.  
+
+````
+sudo nmap -sT TARGET-HOST
+````
+
+**UDP scan**
+
+This type of scan uses UDP pakets to scan ports like DNS, SNMP, and DHCP. UDP Scanning are generally slow, and even with packet-limiting to one packet per second results in an 18+ hour scan. 
+
+``````
+$ sudo nmap -sU TARGET-HOST
+``````
+--->
+<p><strong>Stealth Scan</strong></p>
+<p>A TCP SYN scan, also commonly called a stealth scan, uses the flag -sS. This type of scan initiates by sending a TCP SYN connect request, and if the target responds with a SYN ACK, it doesn&rsquo;t respond with an ACK but sends a RST. As it doesn&rsquo;t complete the ACK handshake, it is less likely to be detected by the target machine.</p>
+<pre tabindex="0"><code>$ sudo nmap -sS 10.0.2.5
+</code></pre><p>
+
+
+
+
+  
+  
+  
+    <figure>
+      <img
+        class="mx-auto my-0 rounded-md"
+        src="/lab1/nmap-sS.PNG"
+        alt="Output of Stealth Scan"
+        
+          loading="lazy"
+        
+      />
+      
+    </figure>
+  
+</p>
+<p><strong>Aggresive Scan</strong></p>
+<p>By including the -A flag, this command runs every kind of scan aganist the target host, including OS detection, version detection, script scanning, and traceroute. This type of scan will generally take a very long time.</p>
+<pre tabindex="0"><code>$ sudo nmap -A 10.0.2.5
+</code></pre><p>Since the output of this scan is quite long, the first part of the output in shown below.</p>
+<p>
+
+
+
+
+  
+  
+  
+    <figure>
+      <img
+        class="mx-auto my-0 rounded-md"
+        src="/lab1/nmap-A-1.PNG"
+        alt="Output Part of Aggressive Scan"
+        
+          loading="lazy"
+        
+      />
+      
+    </figure>
+  
+</p>
+<p><strong>Version Detection</strong></p>
+<p>The -sV flag will allow us to collect information on the version of the service running on an open port. This can be good to know, as older versions can contain unpatched backdoors or vulnerabilities.</p>
+<pre tabindex="0"><code>$ sudo nmap -sV 10.0.2.5
+</code></pre><p>
+
+
+
+
+  
+  
+  
+    <figure>
+      <img
+        class="mx-auto my-0 rounded-md"
+        src="/lab1/nmap-sV.PNG"
+        alt="Output of Version Detection Scan"
+        
+          loading="lazy"
+        
+      />
+      
+    </figure>
+  
+</p>
+<p><strong>OS Detection Scan</strong></p>
+<p>By using TCP/IP fingerprinting, Nmap can provide information onwhat oeprating system the target host is possibly using. It will also show a confidence percentage for each guess. In order to make this faster, we can use the option &ndash;osscan-limit to limit detection to only hosts woth at least one open and one closed TCP port and ignore all other hosts.</p>
+<pre tabindex="0"><code>$ sudo nmap -O 10.0.2.5
+</code></pre><p>
+
+
+
+
+  
+  
+  
+    <figure>
+      <img
+        class="mx-auto my-0 rounded-md"
+        src="/lab1/nmap-O.PNG"
+        alt="Output of OS Detection Scan"
+        
+          loading="lazy"
+        
+      />
+      
+    </figure>
+  
+</p>
+<p><strong>Verbose Output</strong></p>
+<p>By including a -v flag, the scan will output information on the scan&rsquo;s current actions. This option is useful for montitoring a scan, as it gives insight into the specific actions being run.</p>
+<pre tabindex="0"><code>$ nmap -v -sV 10.0.2.5
+</code></pre><p>Here is an example of what the terminal looks like when this output option is enabled:</p>
+<p>
+
+
+
+
+  
+  
+  
+    <figure>
+      <img
+        class="mx-auto my-0 rounded-md"
+        src="/lab1/nmap-v.PNG"
+        alt="Output of Verbose Output"
+        
+          loading="lazy"
+        
+      />
+      
+    </figure>
+  
+</p>
+<p><strong>Scan from File</strong></p>
+<p>If there are a lot of given addresses to be scanned, a file can be imported using the -iL flag. Other commands and flags can also be added to specify the type of scan to run.</p>
+<pre tabindex="0"><code>$ nmap -iL /ips.txt
+</code></pre><p>Here, we are passing in a file <code>ips.txt</code> which contains one line with the IP Address of the Target Host:</p>
+<p>
+
+
+
+
+  
+  
+  
+    <figure>
+      <img
+        class="mx-auto my-0 rounded-md"
+        src="/lab1/nmap-iL.PNG"
+        alt="Output of Scan from File Option"
+        
+          loading="lazy"
+        
+      />
+      
+    </figure>
+  
+</p>
+<h2 id="other-common-nmap-uses" class="relative group">Other Common Nmap Uses <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#other-common-nmap-uses" aria-label="Anchor">#</a></span></h2><pre tabindex="0"><code>$ nmap 192.168.1.1-24 # scan a range of IP Addresses
+
+$ nmap -p 21 192.168.0.1 # scan for infomation on a specific port 
+
+$ nmap -p 69-443 TARGET-HOST # scan a range of ports 
+
+$ nmap -6 ::ffff:c0a8:1 # scan an IPv6 Address 
+</code></pre><h2 id="ethics-considerations" class="relative group">Ethics Considerations <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#ethics-considerations" aria-label="Anchor">#</a></span></h2><p>When utilizing powerful tools like Nmap for network scanning, it is important to adhere to ethical practices.</p>
+<p>Always obtain explicit authorization and permission before conducting any network scanning activities. Unauthorized testing can be seen as aggressive and can possibly designated as an attack. Ensure you have written consent from the system owner or network administrator before using Nmap.</p>
+<p>For learning purposes, it is recommended to stick to your home network, virtual network environments, and safe hosts like scanme.nmap.org.</p>
+<h3 id="sources" class="relative group">Sources <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#sources" aria-label="Anchor">#</a></span></h3><p><a href="https://nmap.org/book/man.html" target="_blank" rel="noreferrer">https://nmap.org/book/man.html</a></p>
+
+      </div>
+    </section>
+    <footer class="pt-8 max-w-prose print:hidden">
+      
+  <div class="flex">
+    
+      
+      
+        
+        <img
+          class="!mb-0 !mt-0 me-4 h-24 w-24 rounded-full"
+          width="96"
+          height="96"
+          alt="Juveria Tabassum"
+          src="/img/author_hu56658bf31fc67b9a59aed5c3f820402e_407718_192x192_fill_box_center_3.png"
+          
+            loading="lazy"
+          
+        />
+      
+    
+    <div class="place-self-center">
+      
+        <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+          Author
+        </div>
+        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+          Juveria Tabassum
+        </div>
+      
+      
+        <div class="text-sm text-neutral-700 dark:text-neutral-400">IT Professional sharing my learning and self-development journey. ☕</div>
+      
+      <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+          style="will-change:transform;"
+          href="https://github.com/jtabas22"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="relative inline-block align-text-bottom px-1 icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+          style="will-change:transform;"
+          href="https://www.linkedin.com/in/juveria-t-3491bb132"
+          target="_blank"
+          aria-label="Linkedin"
+          rel="me noopener noreferrer"
+          ><span class="relative inline-block align-text-bottom px-1 icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+    </div>
+  </div>
+
+
+      
+
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="group flex" href="/posts/post1/">
+              <span
+                class="me-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&larr;</span
+                ><span class="ltr:hidden rtl:inline">&rarr;</span></span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Tools, Programs and Resources</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2023-11-17 09:03:20 -0800 -0800">17 November 2023</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        
+          <div class="pointer-events-none absolute bottom-0 end-0 top-[100vh] w-12">
+            <a
+              href="#the-top"
+              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+              aria-label="Scroll to top"
+              title="Scroll to top"
+            >
+              &uarr;
+            </a>
+          </div>
+        
+      </main><footer class="py-10 print:hidden">
+  
+  
+    <nav class="pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+      <ul class="flex flex-col list-none sm:flex-row">
+        
+          
+          <li class="mb-1 group text-end sm:mb-0 sm:me-7 sm:last:me-0">
+            
+              <a
+                href="/tags/"
+                title="Tags"
+                
+                ><span
+                    class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                    >Tags</span
+                  >
+                </a
+              >
+            
+          </li>
+        
+      </ul>
+    </nav>
+  
+  <div class="flex items-center justify-between">
+    <div>
+      
+      
+        <p class="text-sm text-neutral-500 dark:text-neutral-400">
+            &copy;
+            2023
+            Juveria Tabassum
+        </p>
+      
+      
+      
+        <p class="text-xs text-neutral-500 dark:text-neutral-400">
+          
+          
+          Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+            href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500" href="https://github.com/jpanther/congo" target="_blank" rel="noopener noreferrer">Congo</a>
+        </p>
+      
+    </div>
+    <div class="flex flex-row items-center">
+      
+      
+      
+      
+        <div
+          class="me-14 cursor-pointer text-sm text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        >
+          <button id="appearance-switcher-0" type="button" aria-label="appearance switcher">
+            <div
+              class="flex items-center justify-center w-12 h-12 dark:hidden"
+              title="Switch to dark appearance"
+            >
+              <span class="relative inline-block align-text-bottom px-1 icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+            </div>
+            <div
+              class="items-center justify-center hidden w-12 h-12 dark:flex"
+              title="Switch to light appearance"
+            >
+              <span class="relative inline-block align-text-bottom px-1 icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+            </div>
+          </button>
+        </div>
+      
+    </div>
+  </div>
+  
+  
+</footer>
+
+    </div>
+  </body>
+</html>
